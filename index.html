@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Free organizations that help Ashford Communities residents pay rent and utilities. English, Español, Tiếng Việt.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Help paying rent – Ashford Communities residents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<script src="assets/qrcode.min.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-l="en">English</button><button type="button" class="ghost" data-l="es">Español</button><button type="button" class="ghost" data-l="vi">Tiếng Việt</button>
+  </div>
+  <h1 id="t_title"></h1>
+  <p class="sub" id="t_intro"></p>
+  <div class="panel" style="margin:14px 0">
+    <div class="field"><label for="prop" id="t_choose"></label><select id="prop"></select></div>
+    <div class="row"><label for="zip" id="t_zip"></label><input id="zip" class="w-zip" type="text" inputmode="numeric" maxlength="5"></div>
+  </div>
+  <div id="list"></div>
+  <details class="box" id="specialBox"><summary id="t_special"></summary><div id="specialList" style="margin-top:10px"></div></details>
+  <details class="box"><summary id="t_check"></summary><ul id="checkList"></ul><p class="note" id="t_foot"></p></details>
+  <p class="note" id="t_indep" style="margin-top:14px"></p>
+  <div class="actions noPrint" style="margin-top:10px"><button type="button" class="ghost" id="printList"></button><button type="button" class="ghost" id="printPoster"></button></div>
+</div>
+<div class="poster" id="printArea"></div>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
