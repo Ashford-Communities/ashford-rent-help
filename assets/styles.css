@@ -7,12 +7,12 @@
   --verify:#3D5A80; --verify-bg:#DCE5F1; --closed:#9B2C2C; --closed-bg:#F4DADA; --warn-bg:#FFF1D6; --warn:#7A4B00;
   --sans:"Poppins","Noto Naskh Arabic","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   --cond:"Poppins","Noto Naskh Arabic","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;
   --bg:#0E1622;--panel:#16212F;--ink:#E6EDF2;--muted:#A3B1BE;--line:#2A3848;--teal:#7FCBA0;--teal-ink:#0E1622;--teal-soft:#1B3328;--head:#8CC7E0;
   --open:#7FCB9B;--open-bg:#1C3527;--limited:#E5B865;--limited-bg:#3A2E16;--verify:#9DB8DE;--verify-bg:#1F2C3E;--closed:#E79A9A;--closed-bg:#3B1E1E;--warn-bg:#3A2E16;--warn:#E5B865}}
-:root[data-theme="dark"]{--bg:#0E1622;--panel:#16212F;--ink:#E6EDF2;--muted:#A3B1BE;--line:#2A3848;--teal:#7FCBA0;--teal-ink:#0E1622;--teal-soft:#1B3328;--head:#8CC7E0;
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0E1622;--panel:#16212F;--ink:#E6EDF2;--muted:#A3B1BE;--line:#2A3848;--teal:#7FCBA0;--teal-ink:#0E1622;--teal-soft:#1B3328;--head:#8CC7E0;
   --open:#7FCB9B;--open-bg:#1C3527;--limited:#E5B865;--limited-bg:#3A2E16;--verify:#9DB8DE;--verify-bg:#1F2C3E;--closed:#E79A9A;--closed-bg:#3B1E1E;--warn-bg:#3A2E16;--warn:#E5B865}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 56px)}
@@ -120,7 +120,13 @@ dialog h2{font-family:var(--cond);margin:0 0 10px;font-size:24px}
 .brand-in{max-width:1180px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
 .brand-logo{display:block;line-height:0}
 .brand-logo img{width:108px;height:auto}
+.brand-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
 .lang{display:flex;gap:6px;flex-wrap:wrap}
+.theme{display:flex;border:1px solid rgba(255,255,255,.7);border-radius:6px;overflow:hidden}
+.brand .theme button{background:transparent;color:#fff;border:0;border-radius:0;padding:6px 9px;line-height:0}
+.brand .theme button+button{border-inline-start:1px solid rgba(255,255,255,.4)}
+.brand .theme button[aria-pressed="true"]{background:#fff;color:var(--navy)}
+.brand .theme button:focus-visible{outline:3px solid #fff;outline-offset:-3px}
 .brand .lang button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);font-size:13px;padding:7px 12px}
 .brand .lang button:not(.ghost){background:#fff;color:var(--navy);border-color:#fff}
 .brand .lang button:focus-visible{outline:3px solid #fff;outline-offset:2px}
