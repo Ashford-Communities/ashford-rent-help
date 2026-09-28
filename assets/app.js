@@ -7,13 +7,16 @@ const UI={
  es:{title:"Ayuda para pagar la renta",choose:"¿Dónde vive?",zip:"Su código postal",pick:"Elija su comunidad…",other:"En otro lugar",special:"Programas para situaciones específicas (veteranos, mayores, discapacidad, seguridad, VIH, niños)",indep:"Estas organizaciones no pertenecen a Ashford Communities. Los programas abren y cierran seguido; si uno está lleno, llame al siguiente y al 2-1-1. Su oficina puede enviar el estado de cuenta y los formularios que pida una agencia.",printList:"Imprimir esta lista",printPoster:"Imprimir cartel",posterA:"¿Atrasado con la renta?",posterB:"Hay ayuda gratuita.",scan:"Escanee para ver organizaciones que pueden ayudar — en inglés, español y vietnamita.",none:"Elija dónde vive para ver a quién llamar."},
  vi:{title:"Hỗ trợ trả tiền nhà",choose:"Bạn sống ở đâu?",zip:"Mã ZIP của bạn",pick:"Chọn khu nhà của bạn…",other:"Nơi khác",special:"Chương trình cho hoàn cảnh riêng (cựu chiến binh, người cao tuổi, khuyết tật, an toàn, HIV, trẻ em)",indep:"Các tổ chức này độc lập với Ashford Communities. Chương trình mở và đóng thường xuyên — nếu một nơi đã hết suất, hãy gọi nơi tiếp theo và 2-1-1. Văn phòng cho thuê có thể gửi bảng kê và giấy tờ mà cơ quan yêu cầu.",printList:"In danh sách này",printPoster:"In áp phích văn phòng",posterA:"Trễ tiền nhà?",posterB:"Có hỗ trợ miễn phí.",scan:"Quét mã để xem các tổ chức có thể giúp — bằng tiếng Anh, Tây Ban Nha và Việt.",none:"Chọn nơi bạn sống để xem nên gọi ai."}
 };
-let lang=(navigator.language||"en").slice(0,2);if(!UI[lang])lang="en";
+const LANGS=["en","es","vi","zh","hi","ur","ps"],RTL=["ur","ps"];
+const NATIVE={en:"English",es:"Español",vi:"Tiếng Việt",zh:"中文",hi:"हिन्दी",ur:"اردو",ps:"پښتو"};
+if(typeof MORE!=="undefined"){Object.assign(UI,MORE.ui);Object.assign(I18N,MORE.page);R.forEach(r=>{for(const l in MORE.agency){const t=MORE.agency[l][r.id];if(t)r[l]=t}})}
+let lang=(navigator.language||"en").slice(0,2).toLowerCase();if(!UI[lang]||!I18N[lang])lang="en";
 const OTH=[["O-harris","Houston / Harris","harris"],["O-brazoria","Brazoria","brazoria"],["O-fortbend","Fort Bend","fortbend"],["O-travis","Austin / Travis","travis"],["O-hays","San Marcos / Hays","hays"],["O-ector","Odessa / Ector","ector"]];
 function fillProps(){const L=UI[lang];let h=`<option value="">${esc(L.pick)}</option>`;[...new Set(PROPS.map(p=>p.region))].forEach(rg=>{h+=`<optgroup label="${esc(rg)}">`+PROPS.filter(p=>p.region===rg).map(p=>`<option value="${p.code}">Ashford ${esc(p.name)}</option>`).join("")+`</optgroup>`});h+=`<optgroup label="${esc(L.other)}">`+OTH.map(o=>`<option value="${o[0]}">${esc(o[1])}</option>`).join("")+`</optgroup>`;const v=$("#prop").value;$("#prop").innerHTML=h;$("#prop").value=v}
-function card(r){const d=lang==="en"?r.what:(r[lang]||r.what);const ph=(r.ph||[]).map(([n,l])=>`<a class="tel" href="tel:${n==="2-1-1"?"211":n.replace(/[^0-9]/g,"")}">${esc(n)}</a>${l?`<small>${esc(l)}</small>`:""}`).join("");
-  return `<article class="slip open"><div><h3>${esc(r.name)}</h3><p class="what">${esc(d)}</p>${r.addr?`<p class="meta">${esc(r.addr)}</p>`:""}</div><div class="phones">${ph}${r.web?`<a class="web" href="${esc(r.web)}" target="_blank" rel="noopener">Web</a>`:""}</div></article>`}
+function card(r){const d=lang==="en"?r.what:(r[lang]||r.what);const ph=(r.ph||[]).map(([n,l])=>`<a class="tel" dir="ltr" href="tel:${n==="2-1-1"?"211":n.replace(/[^0-9]/g,"")}">${esc(n)}</a>${l?`<small><bdi>${esc(l)}</bdi></small>`:""}`).join("");
+  return `<article class="slip open"><div><h3><bdi>${esc(r.name)}</bdi></h3><p class="what">${esc(d)}</p>${r.addr?`<p class="meta"><bdi>${esc(r.addr)}</bdi></p>`:""}</div><div class="phones">${ph}${r.web?`<a class="web" href="${esc(r.web)}" target="_blank" rel="noopener">Web</a>`:""}</div></article>`}
 function render(){
-  const L=UI[lang],T=I18N[lang];document.documentElement.lang=lang;
+  const L=UI[lang],T=I18N[lang];document.documentElement.lang=lang;document.documentElement.dir=RTL.includes(lang)?"rtl":"ltr";
   $("#t_title").textContent=L.title;$("#t_intro").textContent=T.intro;$("#t_choose").textContent=L.choose;$("#t_zip").textContent=L.zip;$("#t_special").textContent=L.special;$("#t_check").textContent=T.check;$("#t_foot").textContent=T.foot;$("#t_indep").textContent=L.indep;$("#printList").textContent=L.printList;$("#printPoster").textContent=L.printPoster;
   $("#checkList").innerHTML=T.items.map(i=>`<li>${esc(i)}</li>`).join("");
   document.querySelectorAll(".lang button").forEach(b=>b.className=b.dataset.l===lang?"":"ghost");
@@ -32,7 +35,7 @@ $("#zip").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D
 $("#printList").addEventListener("click",()=>{$("#specialBox").open=true;window.print()});
 $("#printPoster").addEventListener("click",()=>{
   const po=$("#printArea");const url=RES_URL.startsWith("http")?RES_URL:location.href;
-  po.innerHTML=["en","es","vi"].map(l=>`<div><h1>${esc(UI[l].posterA)}</h1><h2>${esc(UI[l].posterB)}</h2></div>`).join("")+`<div id="qr"></div><p>${esc(UI.en.scan)}</p><p>${esc(UI.es.scan)}</p><p>${esc(UI.vi.scan)}</p><p style="font-size:14px">${esc(url)}</p>`;
+  po.innerHTML=`<div class="plead"><h1>${esc(UI.en.posterA)}</h1><h2>${esc(UI.en.posterB)}</h2></div><div class="pgrid">`+LANGS.slice(1).map(l=>`<div lang="${l}" dir="${RTL.includes(l)?"rtl":"ltr"}"><h3>${esc(UI[l].posterA)}</h3><p>${esc(UI[l].posterB)}</p></div>`).join("")+`</div><div id="qr"></div><p>${esc(UI.en.scan)}</p><p class="plangs">${LANGS.map(l=>`<span lang="${l}">${esc(NATIVE[l])}</span>`).join(" · ")}</p><p style="font-size:14px">${esc(url)}</p>`;
   try{if(window.QRCode)new QRCode(document.getElementById("qr"),{text:url,width:320,height:320,correctLevel:QRCode.CorrectLevel.M})}catch(e){}
   document.body.dataset.print="1";const done=()=>{delete document.body.dataset.print;window.removeEventListener("afterprint",done)};window.addEventListener("afterprint",done);setTimeout(()=>window.print(),300);
 });

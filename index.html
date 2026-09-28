@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="Free organizations that help Ashford Communities residents pay rent and utilities. English, Español, Tiếng Việt.">
+<meta name="description" content="Free organizations that help Ashford Communities residents pay rent and utilities. English, Español, Tiếng Việt, 中文, हिन्दी, اردو, پښتو.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Help paying rent – Ashford Communities residents</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#002661">
+<link rel="icon" href="https://ashfordco.com/wp-content/uploads/2024/08/cropped-CORP-SLOGAN-1-32x32.png">
 <script src="assets/qrcode.min.js"></script>
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v=2">
 </head>
 <body>
-<div class="wrap">
-  <div class="lang" role="group" aria-label="Language">
-    <button type="button" data-l="en">English</button><button type="button" class="ghost" data-l="es">Español</button><button type="button" class="ghost" data-l="vi">Tiếng Việt</button>
+<header class="brand noPrint">
+  <div class="brand-in">
+    <a href="https://ashfordco.com/" class="brand-logo" aria-label="Ashford Communities home"><img src="assets/ashford-logo-white.png" alt="Ashford Communities" width="120" height="72"></a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-l="en" lang="en">English</button><button type="button" class="ghost" data-l="es" lang="es">Español</button><button type="button" class="ghost" data-l="vi" lang="vi">Tiếng Việt</button><button type="button" class="ghost" data-l="zh" lang="zh">中文</button><button type="button" class="ghost" data-l="hi" lang="hi">हिन्दी</button><button type="button" class="ghost" data-l="ur" lang="ur" dir="rtl">اردو</button><button type="button" class="ghost" data-l="ps" lang="ps" dir="rtl">پښتو</button>
+    </div>
   </div>
+</header>
+<div class="wrap">
   <h1 id="t_title"></h1>
   <p class="sub" id="t_intro"></p>
   <div class="panel" style="margin:14px 0">
@@ -27,8 +34,10 @@
   <p class="note" id="t_indep" style="margin-top:14px"></p>
   <div class="actions noPrint" style="margin-top:10px"><button type="button" class="ghost" id="printList"></button><button type="button" class="ghost" id="printPoster"></button></div>
 </div>
+<footer class="foot noPrint"><a href="https://ashfordco.com/">ashfordco.com</a></footer>
 <div class="poster" id="printArea"></div>
-<script src="assets/data.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/data.js?v=2"></script>
+<script src="assets/translations.js?v=2"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>
