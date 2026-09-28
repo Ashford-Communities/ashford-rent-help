@@ -28,7 +28,7 @@ function render(){
   if(!county){$("#list").innerHTML=`<div class="empty">${esc(L.none)}</div>`;$("#specialList").innerHTML="";return}
   const ok=r=>r.st!=="closed"&&r.c.includes(county)&&(!r.zips||(zip.length===5&&r.zips.includes(zip)))&&!r.cause;
   const main=R.filter(r=>ok(r)&&!r.pop&&r.sec!=="special").sort((a,b)=>((b.zips?1:0)-(a.zips?1:0))||((a.rank||9)-(b.rank||9)));
-  let h="";["start","rent","utility","legal","benefits"].forEach(k=>{const g=main.filter(r=>r.sec===k);if(g.length)h+=`<section class="group"><h2>${esc(T.sec[k])}</h2>${g.map(card).join("")}</section>`});
+  let h="";["start","rent","utility","benefits"].forEach(k=>{const g=main.filter(r=>r.sec===k);if(g.length)h+=`<section class="group"><h2>${esc(T.sec[k])}</h2>${g.map(card).join("")}</section>`});
   $("#list").innerHTML=h;
   $("#specialList").innerHTML=R.filter(r=>ok(r)&&(r.pop||r.sec==="special")).map(card).join("");
 }
