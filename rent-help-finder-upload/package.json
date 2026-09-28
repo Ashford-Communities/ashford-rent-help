@@ -1,6 +1,0 @@
-{
-  "name": "ashford-rent-help-internal",
-  "private": true,
-  "type": "module",
-  "engines": { "node": ">=20" }
-}
